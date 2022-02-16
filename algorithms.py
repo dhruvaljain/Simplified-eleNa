@@ -3,7 +3,7 @@ from elena import Graph
 import copy
 
 class BFS(search):
-    
+    # This is an iterative BFS algorithm that computes the shortest path between the source and target.
     def FindPath(self,u):
         while self.route:
             u = self.route[0]
@@ -25,7 +25,7 @@ class BFS(search):
         return []
 
 class DFS(search):
-
+    # This is an backtracking based method to compute the shortest path between  
     def FindPath(self,u):
         if u == self.target:
             if self.shortestDistance > self.visit[u]:

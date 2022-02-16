@@ -2,7 +2,9 @@ import random
 
 
 class Graph():
-
+# Class Graph is responsible for generating the random directed graph by taking the type of routing algorithm into account.
+# Due to time complexity constraint, the maximum allowable vertices is kept 10 in case of DFS algorithm. While, for BFS it is
+# 10000.
     def __init__(self, algo):
         if algo == "BFS":
             self.N = 10000
@@ -12,18 +14,23 @@ class Graph():
         self.algo = algo
         self.graph = self.generate_graph()
 
+    # The generate_graph function builds the graph. EDGE_LIMIT is set to 10, which means that a vertex can have atmost 10 edges
+    # to other vertices.
     def generate_graph(self):
         graph = [[]]
         num_edges = [random.randrange(0, self.EDGE_LIMIT, 1) for i in range(self.N)]        
         for edge in num_edges:
             graph.append([random.randrange(1, self.N+1, 1) for i in range(edge)])
         return graph
-        # print(self.graph)
+        
     
 class search():
+    # search class is an abstract class which is implemented by class BFS and DFS indiviually. 
+    # The FindPath function implements the actual routing algorithm.
+    # The constructor initialises the variables required by the routing classes BFS and DFS.
+
     def __init__(self,source, target, algo):
-        self.graph = Graph(algo).graph
-        # self.graph = [[],[2,4],[3],[5],[5],[6],[]]
+        self.graph = Graph(algo).graph        
         self.src = source
         self.target = target
         if algo == "DFS":
@@ -43,50 +50,3 @@ class search():
 
     
 
-# x = BFS(1,6,"BFS")
-# print(x.FindPath(1))
-
-
-
-
-# print(x.src)
-# def FindPath(self):
-#     print(self.graph)
-#     visit = [-1]*len(self.graph)
-#     visit[self.src] = 0
-#     q = [self.src]
-#     pred = [-1]*len(self.graph)
-#     while q:
-#         u = q[0]
-#         q.pop(0)
-#         for i in range(len(self.graph[u])):
-#             if (visit[self.graph[u][i]] == -1):
-#                 visit[self.graph[u][i]] = visit[u] + 1
-#                 pred[self.graph[u][i]] = u
-#                 q.append(self.graph[u][i])
-#                 if (self.graph[u][i] == self.target):
-#                     path = []
-#                     crawl = self.target
-#                     path.append(crawl)                        
-#                     while (pred[crawl] != -1):
-#                         # print(pred[crawl])
-#                         path.append(pred[crawl])
-#                         crawl = pred[crawl]
-#                     return path
-
-#     return []
-
-
-# def FindPath(self,u):        
-    #     for i in range(len(self.graph[u])):
-    #         if self.visit[self.graph[u][i]] == -1:
-    #             self.visit[self.graph[u][i]] = self.visit[u] + 1
-    #             self.path[self.graph[u][i]] = u
-    #             if u == self.target:
-    #                 print("aaya")
-    #                 return
-    #             else:
-    #                 self.route.append(self.graph[u][i])
-    #     self.route.pop(0)
-    #     if len(self.route) != 0:
-    #         self.FindPath(self.route[0])
